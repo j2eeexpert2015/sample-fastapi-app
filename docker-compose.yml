@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  fastapi:
+    build:
+      context: .
+    ports:
+      - "8000:8000"  # FastAPI application port
+      - "5678:5678"  # Debugpy debugging port
+    volumes:
+      - .:/app  # Mount the local directory into the container
+    #command: uvicorn main:app --host 0.0.0.0 --port 8000
+    #command: ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "--wait-for-client", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]    
+    command: ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
